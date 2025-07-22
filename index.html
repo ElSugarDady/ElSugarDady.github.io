@@ -1,0 +1,135 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio - [Tu Nombre]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            font-size: 1.2em;
+        }
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        .contacto a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .contacto a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>[Tu Nombre]</h1>
+        <p>Estudiante de Ciencias de la Computación | Desarrollador Web</p>
+    </header>
+    <section>
+        <h2>Sobre Mí</h2>
+        <p>Hola, soy [Tu Nombre], un estudiante de Ciencias de la Computación en Puerto Rico. Me apasiona crear páginas web funcionales y modernas para ayudar a negocios locales a crecer. Estoy terminando mi bachillerato y busco oportunidades para aplicar mis habilidades en HTML, CSS y más.</p>
+    </section>
+    <section>
+        <h2>Habilidades</h2>
+        <ul>
+            <li>HTML y CSS</li>
+            <li>JavaScript (básico)</li>
+            <li>Diseño de páginas web responsivas</li>
+            <li>Resolución de problemas en programación</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Proyectos</h2>
+        <p>Página web para un restaurante local (proyecto universitario) - Creé una página estática con HTML y CSS para mostrar el menú y contacto.</p>
+        <p>Sistema de gestión de tareas (proyecto personal) - Un script simple para organizar tareas usando JavaScript.</p>
+    </section>
+    <section class="contacto">
+        <h2>Contacto</h2>
+        <p>Email: <a href="mailto:tuemail@example.com">tuemail@example.com</a></p>
+        <p>WhatsApp: <a href="https://wa.me/17871234567">+1 (787) 123-4567</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/tu-perfil">Mi perfil</a></p>
+    </section>
+    <footer>
+        <p>© 2025 [Tu Nombre]. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
