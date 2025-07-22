@@ -44,65 +44,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Portafolio - Adam Vega</title>
     <style>
+        /* Colores cyberpunk futurísticos: Fondo oscuro (#0a0a0a), Neón cyan (#00ffff), Magenta (#ff00ff), Azul eléctrico (#00bfff) */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace; /* Fuente futurística tipo terminal */
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #0a0a0a; /* Fondo negro cyberpunk */
+            color: #00ffff; /* Texto principal en cyan neón */
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         header {
-            background-color: #2c3e50;
-            color: white;
+            background-color: #000; /* Fondo negro */
+            color: #ff00ff; /* Magenta neón para texto */
             text-align: center;
             padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 20px #00bfff; /* Glow azul eléctrico */
         }
+
         header h1 {
-            margin: 0;
+            margin: 10px 0;
             font-size: 2.5em;
+            text-shadow: 0 0 10px #ff00ff; /* Glow magenta */
         }
+
         header p {
             font-size: 1.2em;
+            text-shadow: 0 0 5px #00ffff; /* Glow cyan */
         }
+
+        /* Foto con borde neón */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid #00bfff; /* Borde azul eléctrico */
+            box-shadow: 0 0 15px #00bfff; /* Glow neón */
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #ff00ff; /* Glow magenta al hover */
+        }
+
         section {
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #1a1a1a; /* Gris oscuro cyberpunk */
+            box-shadow: 0 0 15px #00ffff; /* Glow cyan en secciones */
+            border: 1px solid #00bfff; /* Borde azul neón */
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
+        section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px #ff00ff; /* Glow magenta al hover */
+        }
+
         h2 {
-            color: #2c3e50;
+            color: #ff00ff; /* Magenta neón */
+            text-shadow: 0 0 5px #ff00ff;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         ul li {
             margin: 10px 0;
+            color: #00ffff; /* Cyan para listas */
         }
+
         .contacto a {
-            color: #3498db;
+            color: #00bfff; /* Azul eléctrico para enlaces */
             text-decoration: none;
+            transition: color 0.3s, text-shadow 0.3s;
         }
+
         .contacto a:hover {
-            text-decoration: underline;
+            color: #ff00ff; /* Cambia a magenta al hover */
+            text-shadow: 0 0 10px #ff00ff;
         }
+
         footer {
             text-align: center;
             padding: 20px;
-            background-color: #2c3e50;
-            color: white;
+            background-color: #000;
+            color: #00ffff;
             position: relative;
             bottom: 0;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px #00bfff; /* Glow en footer */
+        }
+
+        /* Botón de login con estilo cyberpunk */
+        .login-btn {
+            background-color: #ff00ff; /* Magenta neón */
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #ff00ff;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #00ffff; /* Cyan al hover */
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        /* Formulario para añadir imágenes con estilo futurístico */
+        #add-project-form {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border: 1px solid #00bfff;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        #add-project-form input {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+            background-color: #0a0a0a;
+            color: #00ffff;
+            border: 1px solid #00bfff;
+        }
+
+        #add-project-form button {
+            background-color: #ff00ff;
+            color: #000;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        /* Galería de proyectos con estilo cyberpunk */
+        .project {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #00ffff;
+        }
+
+        .project img {
+            width: 100px;
+            height: auto;
+            margin-right: 20px;
+            border: 1px solid #00bfff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #00bfff;
+        }
+
+        .added-project {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border-radius: 5px;
+            border: 1px solid #ff00ff;
+            box-shadow: 0 0 10px #ff00ff;
+        }
+
+        .added-project img {
+            width: 80px;
+            height: auto;
+            margin-right: 15px;
+            box-shadow: 0 0 10px #00ffff;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>[Adam Vega]</h1>
-        <p>Estudiante de Ciencias de la Computación | Desarrollador Web | Diseñador Grafico</p>
+        <!-- Aquí va tu foto personal - Cambia el src si es necesario (asumiendo que 'AdamPresentationFoto.jpg' está en el repositorio) -->
+        <img src="./AdamPresentationFoto.jpg" alt="Foto de Adam Vega" class="profile-photo">
+        <h1>Adam Vega</h1>
+        <p>Estudiante de Ciencias de la Computación | Desarrollador Web | Diseñador Gráfico</p>
     </header>
     <section>
         <h2>Sobre Mí</h2>
@@ -117,19 +256,81 @@
             <li>Resolución de problemas en programación</li>
         </ul>
     </section>
-    <section>
+    <section id="projects-section">
         <h2>Proyectos</h2>
-        <p>Página web para un restaurante local (proyecto universitario) - Creé una página estática con HTML y CSS para mostrar el menú y contacto.</p>
-        <p>Sistema de gestión de tareas (proyecto personal) - Un script simple para organizar tareas usando JavaScript.</p>
+        <div class="project">
+            <p>Página web para un restaurante local (proyecto universitario) - Creé una página estática con HTML y CSS para mostrar el menú y contacto.</p>
+        </div>
+        <div class="project">
+            <p>Sistema de gestión de tareas (proyecto personal) - Un script simple para organizar tareas usando JavaScript.</p>
+        </div>
+        <div id="added-projects"></div>
+        <div id="add-project-form">
+            <h3>Añadir Imagen de Proyecto</h3>
+            <input type="text" id="project-image-url" placeholder="URL de la imagen (ej: https://imgbb.com/tu-imagen.jpg)">
+            <input type="text" id="project-description" placeholder="Descripción corta">
+            <button onclick="addProject()">Añadir</button>
+        </div>
     </section>
     <section class="contacto">
         <h2>Contacto</h2>
-        <p>Email: <a href="mailto:tuemail@example.com">Comingsoon_@example.com</a></p>
+        <p>Email: <a href="mailto:Comingsoon_@example.com">Comingsoon_@example.com</a></p>
         <p>WhatsApp: <a href="https://wa.me/17871234567">Numero de Telefono Pronto</a></p>
         <p>LinkedIn: <a href="https://linkedin.com/in/tu-perfil">Coming Soon</a></p>
     </section>
     <footer>
         <p>© 2025 Adam Vega. Todos los derechos reservados.</p>
+        <button class="login-btn" onclick="login()">Login</button>
     </footer>
+
+    <!-- JavaScript para login y añadir proyectos (mantenido sin cambios) -->
+    <script>
+        // password favor no usar ni tocar QwQ
+        const myPassword = "Futa69420"; 
+
+        function login() {
+            const password = prompt("Ingresa tu password:");
+            if (password === myPassword) {
+                document.getElementById("add-project-form").style.display = "block";
+            } else {
+                alert("Password incorrecto.");
+            }
+        }
+
+        // Cargar proyectos guardados de localStorage al cargar la página
+        function loadProjects() {
+            const projects = JSON.parse(localStorage.getItem("projects")) || [];
+            const container = document.getElementById("added-projects");
+            container.innerHTML = "";
+            projects.forEach(project => {
+                const div = document.createElement("div");
+                div.className = "added-project";
+                div.innerHTML = `
+                    <img src="${project.image}" alt="Proyecto añadido">
+                    <p>${project.description}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Añadir un proyecto nuevo
+        function addProject() {
+            const url = document.getElementById("project-image-url").value;
+            const desc = document.getElementById("project-description").value;
+            if (url && desc) {
+                const projects = JSON.parse(localStorage.getItem("projects")) || [];
+                projects.push({ image: url, description: desc });
+                localStorage.setItem("projects", JSON.stringify(projects));
+                loadProjects(); // Recargar la lista
+                document.getElementById("project-image-url").value = "";
+                document.getElementById("project-description").value = "";
+            } else {
+                alert("Ingresa una URL y descripción.");
+            }
+        }
+
+        // Cargar proyectos al inicio
+        window.onload = loadProjects;
+    </script>
 </body>
 </html>
